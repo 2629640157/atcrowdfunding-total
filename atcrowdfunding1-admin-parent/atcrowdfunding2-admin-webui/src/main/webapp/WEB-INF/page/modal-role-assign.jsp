@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<div id="assignShowModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">尚筹网系统弹窗</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <%--指定生成树的位置--%>
+                    <ul id="authTree" class="ztree"></ul>
+
+                </div>
+                <div class="modal-footer">
+                    <button id="saveAssign" type="button" class="btn btn-default"><i
+                            class="glyphicon glyphicon-plus"></i> 分配
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

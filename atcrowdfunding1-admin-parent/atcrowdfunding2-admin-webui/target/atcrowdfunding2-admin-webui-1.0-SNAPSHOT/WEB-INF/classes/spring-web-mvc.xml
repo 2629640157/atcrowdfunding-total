@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 配置自动扫描的包 -->
+    <context:component-scan base-package="com.you.crowd" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+        <context:include-filter type="assignable" expression="com.you.crowd.config.CrowdfundingSecurityConfig"/>
+    </context:component-scan>
+
+
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolver">
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+    <!-- 启用注解驱动 -->
+    <mvc:annotation-driven/>
+
+    <!--配置异常映射-->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!--key:指定异常类型，值表示去那个异常页面-->
+                <prop key="java.lang.ArithmeticException">errors/system-error</prop>
+                <!--以后我们可以指定异常，当异常出现时去那个页面-->
+                <prop key="com.you.ssm.exception.AccessForbiddenException">page/admin-login</prop>
+
+            </props>
+        </property>
+
+    </bean>
+
+
+    <!-- @RequestMapping("/to/admin-login.html")
+     public String toAdminLogin() {
+     return "page/admin-login";
+     }-->
+    <mvc:view-controller path="/admin/to/admin-login.html" view-name="page/admin-login"/>
+    <mvc:view-controller path="/admin/to/main.html" view-name="page/main"/>
+    <mvc:view-controller path="/admin/to/add.html" view-name="page/add"/>
+    <mvc:view-controller path="/role/to/list.html" view-name="page/role-list"/>
+    <mvc:view-controller path="/menu/to/menu-list.html" view-name="page/menu-list"/>
+    <!--<mvc:view-controller path="/admin/to/update.html" view-name="page/update"/>-->
+
+
+    <!--配置拦截器-->
+    <!-- <mvc:interceptors>
+         <mvc:interceptor>
+             <mvc:mapping path="/**"/>
+             <mvc:exclude-mapping path="/admin/do/login.html"/>
+             <mvc:exclude-mapping path="/admin/do/loginOut.html"/>
+             <mvc:exclude-mapping path="/admin/to/admin-login.html"/>
+             <bean class="com.you.crowd.interceptors.LoginCheckInterceptor"/>
+         </mvc:interceptor>
+     </mvc:interceptors>-->
+</beans>
