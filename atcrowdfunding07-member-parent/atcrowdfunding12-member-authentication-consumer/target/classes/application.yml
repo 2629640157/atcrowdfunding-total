@@ -1,0 +1,26 @@
+server:
+  port: 4000
+spring:
+  application:
+    name: atguigu-crowd-auth
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+  redis:
+    host: 127.0.0.1
+  session:
+    store-type: redis
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka
+shortmessageproperties:
+    host: https://smssend.shumaidata.com
+    path: /sms/send
+    method: POST
+    appCode: 6aaa82d851f542b8b4fc2669b2f5398e
+    templateId: MF640EBE0E
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000

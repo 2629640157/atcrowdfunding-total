@@ -1,0 +1,29 @@
+#单个服务
+#server:
+ # port: 1000
+#spring:
+ # application:
+  #  name: atguigu-crowd-eureka
+#eureka:
+ # instance:
+  #  hostname: localhost
+  #client:
+   # register-with-eureka: false
+    #fetch-registry: false
+    #service-url:
+         #defaultZone : http://${eureka.instance.hostname}:${server.port}/eureka/
+
+#服务器集群
+server:
+  port: 1000
+spring:
+  application:
+    name: atguigu-crowd-eureka-1000
+eureka:
+  instance:
+    hostname: eureka1000.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+         defaultZone : http://eureka1001.com:1001/eureka/

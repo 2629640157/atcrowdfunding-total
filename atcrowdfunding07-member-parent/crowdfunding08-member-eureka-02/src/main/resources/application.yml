@@ -1,0 +1,13 @@
+server:
+  port: 1001
+spring:
+  application:
+    name: atguigu-crowd-eureka-1001
+eureka:
+  instance:
+    hostname: eureka1001.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+         defaultZone : http://eureka1000.com:1000/eureka/

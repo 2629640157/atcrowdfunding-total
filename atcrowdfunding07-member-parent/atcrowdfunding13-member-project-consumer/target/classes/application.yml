@@ -1,0 +1,23 @@
+server:
+  port: 5000
+eureka:
+  client:
+    service-url:
+     defaultZone: http://localhost:1000/eureka
+spring:
+  application:
+    name: atguigu-crowd-project
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  redis:
+    host: 127.0.0.1
+  session:
+    store-type: redis
+aliyun:
+ oss:
+  end-point: http://oss-cn-hangzhou.aliyuncs.com
+  bucket-name: ydgk-test
+  access-key-id: LTAI4GKGPChYZP87QcWu5hp9
+  access-key-secret: hdZ0Xxx8Yd16i1j5CpsKMaHE2OtrX7
+  bucket-domain: http://ydgk-test.oss-cn-hangzhou.aliyuncs.com

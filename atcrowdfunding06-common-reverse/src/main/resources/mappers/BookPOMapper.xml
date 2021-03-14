@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.you.book.mapper.BookPOMapper">
+    <resultMap id="BaseResultMap" type="com.you.book.entity.po.BookPO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="book_name" property="bookName" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="book_num" property="bookNum" jdbcType="INTEGER"/>
+        <result column="miaoshu" property="miaoshu" jdbcType="VARCHAR"/>
+        <result column="picture" property="picture" jdbcType="VARCHAR"/>
+        <result column="date_issued" property="dateIssued" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, book_name, price, book_num, miaoshu, picture, date_issued
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.you.book.entity.po.BookPOExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from book
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from book
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.you.book.entity.po.BookPOExample">
+        delete from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.you.book.entity.po.BookPO">
+        insert into book (id, book_name, price,
+        book_num, miaoshu, picture,
+        date_issued)
+        values (#{id,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},
+        #{bookNum,jdbcType=INTEGER}, #{miaoshu,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR},
+        #{dateIssued,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.you.book.entity.po.BookPO">
+        insert into book
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="bookName != null">
+                book_name,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="bookNum != null">
+                book_num,
+            </if>
+            <if test="miaoshu != null">
+                miaoshu,
+            </if>
+            <if test="picture != null">
+                picture,
+            </if>
+            <if test="dateIssued != null">
+                date_issued,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="bookName != null">
+                #{bookName,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="bookNum != null">
+                #{bookNum,jdbcType=INTEGER},
+            </if>
+            <if test="miaoshu != null">
+                #{miaoshu,jdbcType=VARCHAR},
+            </if>
+            <if test="picture != null">
+                #{picture,jdbcType=VARCHAR},
+            </if>
+            <if test="dateIssued != null">
+                #{dateIssued,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.you.book.entity.po.BookPOExample" resultType="java.lang.Integer">
+        select count(*) from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update book
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.bookName != null">
+                book_name = #{record.bookName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.price != null">
+                price = #{record.price,jdbcType=DECIMAL},
+            </if>
+            <if test="record.bookNum != null">
+                book_num = #{record.bookNum,jdbcType=INTEGER},
+            </if>
+            <if test="record.miaoshu != null">
+                miaoshu = #{record.miaoshu,jdbcType=VARCHAR},
+            </if>
+            <if test="record.picture != null">
+                picture = #{record.picture,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dateIssued != null">
+                date_issued = #{record.dateIssued,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update book
+        set id = #{record.id,jdbcType=INTEGER},
+        book_name = #{record.bookName,jdbcType=VARCHAR},
+        price = #{record.price,jdbcType=DECIMAL},
+        book_num = #{record.bookNum,jdbcType=INTEGER},
+        miaoshu = #{record.miaoshu,jdbcType=VARCHAR},
+        picture = #{record.picture,jdbcType=VARCHAR},
+        date_issued = #{record.dateIssued,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.you.book.entity.po.BookPO">
+        update book
+        <set>
+            <if test="bookName != null">
+                book_name = #{bookName,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="bookNum != null">
+                book_num = #{bookNum,jdbcType=INTEGER},
+            </if>
+            <if test="miaoshu != null">
+                miaoshu = #{miaoshu,jdbcType=VARCHAR},
+            </if>
+            <if test="picture != null">
+                picture = #{picture,jdbcType=VARCHAR},
+            </if>
+            <if test="dateIssued != null">
+                date_issued = #{dateIssued,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.you.book.entity.po.BookPO">
+        update book
+        set book_name = #{bookName,jdbcType=VARCHAR},
+        price = #{price,jdbcType=DECIMAL},
+        book_num = #{bookNum,jdbcType=INTEGER},
+        miaoshu = #{miaoshu,jdbcType=VARCHAR},
+        picture = #{picture,jdbcType=VARCHAR},
+        date_issued = #{dateIssued,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
